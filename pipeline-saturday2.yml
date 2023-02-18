@@ -8,7 +8,7 @@ variables:
   resourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
   synapseWorkspaceName: 'synapse-qa-van'
   synapseArtifactFolder: 'synapse-data-dev-van'
-  githubRepo: 'Synapse-dev'
+  githubRepo: 'PromitXI/Synapse-dev'
   githubBranch: 'workspace_publish'
   githubToken: $(GITHUB_TOKEN)
 
