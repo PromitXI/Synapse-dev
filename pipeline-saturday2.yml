@@ -29,7 +29,7 @@ steps:
     auth: 'OAuth'
     token: $(githubToken)
 
-- task: AzureSynapseWorkspaceDeployment@0
+- task: Synapse workspace deployment@1
   displayName: 'Deploy to Synapse Workspace'
   inputs:
     ConnectedServiceName: 'MySynapseServiceConnection'
