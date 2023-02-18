@@ -24,27 +24,14 @@ stages:
               repository: 'PromitXI/Synapse-dev'
               ref: '$(workspace_publish_branch)' # Use the value of the workspace_publish_branch variable
               path: '$(System.DefaultWorkingDirectory)/workspace_publish'
-             name: 'Download GitHub Action'
-
-          - task: AzureResourceManagerTemplateDeployment@3
+            displayName: 'Download GitHub Action'
+          
+          - task: SynapseWorkspaceDeployment@0
             inputs:
-              deploymentScope: 'Resource Group'
-              subscriptionId: '58a3cb06-91b3-4f09-82b8-882ec0a9c038'
-              resourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
-              location: 'West US 3'
-              csmFile: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van/template.json'
-              csmParametersFile: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van/parameters.json'
-              deploymentMode: 'Incremental'
-#To use this YAML code, you'll need to do the following:
-
-# Set the workspace_publish_branch variable to the name of the branch where your template and parameters files are located.
-# Replace your-environment-name with the name of the environment that you want to deploy to.
-# Replace your-github-repo-owner and your-github-repo with the owner and name of your GitHub repository, respectively.
-# Replace <your-subscription-id>, <your-resource-group-name>, and <your-location> with the appropriate values for your Azure subscription, resource group, and location.
-# Update the csmFile and csmParametersFile inputs in the AzureResourceManagerTemplateDeployment task to reference the template and parameters files in the $(System.DefaultWorkingDirectory)/workspace_publish directory.
-# Note that this example assumes that the template and parameters files are named template.json and parameters.json, respectively. If your files have different names, you'll need to update the file names in the csmFile and csmParametersFile inputs accordingly.
-
-# Also, this example uses the DownloadGitHubAction task to download the workspace_publish branch from the GitHub repository. This task requires that you set up a GitHub personal access token (PAT) and store it as a secret in your Azure DevOps project. You can find more information on how to set up a PAT and use it in your pipeline in the official GitHub documentation.
-
-
-
+              ConnectedServiceName: 'ServeConnPipeline'
+              FolderPath: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van'
+              ArtifactsLocation: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van'
+              TemplateLocation: 'Linked artifact'
+              LinkedTemplateFilePath: 'template.json'
+              LinkedParametersFilePath: 'parameters.json'
+              DeploymentMode: 'Incremental'
