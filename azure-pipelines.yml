@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  system.debug: true
+
+
 stages:
 - stage: deploy
   displayName: 'Deploy to Synapse Workspace'
