@@ -27,6 +27,7 @@ steps:
 - task: GitClone@2
   displayName: 'Clone repository'
   inputs:
+    RepositoryURL: 'https://github.com/PromitXI/Synapse-dev'
     repository: '$(githubRepo)'
     branch: '$(githubBranch)'
     clean: true
