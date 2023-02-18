@@ -1,10 +1,14 @@
 trigger:
 - main
 
+
+  
+
 pool:
   vmImage: 'windows-latest'
 
 variables:
+  system.debug: true
   resourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
   synapseWorkspaceName: 'synapse-qa-van'
   synapseArtifactFolder: 'synapse-data-dev-van'
