@@ -19,19 +19,20 @@ stages:
           - checkout: self
             clean: true
 
-          - task: DownloadGitHubAction@0
+          - task: DownloadGitHubAction@1
             inputs:
               repository: 'PromitXI/Synapse-dev'
               ref: '$(workspace_publish_branch)' # Use the value of the workspace_publish_branch variable
               path: '$(System.DefaultWorkingDirectory)/workspace_publish'
             displayName: 'Download GitHub Action'
           
-          - task: SynapseWorkspaceDeployment@0
+          - task: Synapse workspace deployment@1
             inputs:
-              ConnectedServiceName: 'ServeConnPipeline'
-              FolderPath: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van'
-              ArtifactsLocation: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van'
-              TemplateLocation: 'Linked artifact'
-              LinkedTemplateFilePath: 'template.json'
-              LinkedParametersFilePath: 'parameters.json'
-              DeploymentMode: 'Incremental'
+              
+              azureSubscription: '58a3cb06-91b3-4f09-82b8-882ec0a9c038'
+              
+              TargetWorkspaceName: 'synapse-qa-van' # Replace with the name of your Synapse workspace
+              ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3' # Replace with the name of the resource group where your Synapse workspace is located
+              TemplateFile: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van/template.json'
+              ParametersFile: '$(System.DefaultWorkingDirectory)/workspace_publish/synapse-data-dev-van/parameters.json'
+              
