@@ -25,8 +25,8 @@ stages:
     - task: AzureSynapseWorkspace.synapsecicd-deploy.synapse-deploy.Synapse workspace deployment@1
       displayName: 'Synapse deployment task for workspace: synapse-qa-van '
       inputs:
-        TemplateFile: '$(System.DefaultWorkingDirectory)/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/*.json'
-        ParametersFile: '$(System.DefaultWorkingDirectory)/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/*.json'
+        TemplateFile: 'https://github.com/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/TemplateParametersForWorkspace.json'
+        ParametersFile: 'https://github.com/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/TemplateParametersForWorkspace.json'
         azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
         ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
         TargetWorkspaceName: 'synapse-qa-van '
