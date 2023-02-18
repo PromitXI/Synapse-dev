@@ -1,0 +1,40 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  resourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+  synapseWorkspaceName: 'synapse-qa-van'
+  synapseArtifactFolder: 'synapse-data-dev-van'
+  githubRepo: 'Synapse-dev'
+  githubBranch: 'workspace_publish'
+  githubToken: $(GITHUB_TOKEN)
+
+steps:
+- task: DownloadSecureFile@1
+  displayName: 'Download GitHub token'
+  inputs:
+    secureFile: 'github-token'
+  env:
+    GITHUB_TOKEN: $(DownloadSecureFile.secureFilePath)
+
+- task: GitClone@2
+  displayName: 'Clone repository'
+  inputs:
+    repository: '$(githubRepo)'
+    branch: '$(githubBranch)'
+    clean: true
+    auth: 'OAuth'
+    token: $(githubToken)
+
+- task: AzureSynapseWorkspaceDeployment@0
+  displayName: 'Deploy to Synapse Workspace'
+  inputs:
+    ConnectedServiceName: 'MySynapseServiceConnection'
+    ResourceGroupName: $(resourceGroupName)
+    WorkspaceName: $(synapseWorkspaceName)
+    ArtifactFolder: $(synapseArtifactFolder)
+    TemplateFile: 'Template.json'
+    ParametersFile: 'parameter.json'
