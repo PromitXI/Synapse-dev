@@ -16,7 +16,7 @@ steps:
 - task: DownloadSecureFile@1
   displayName: 'Download GitHub token'
   inputs:
-    secureFile: 'github-token'
+    secureFile: 'Github-Token.txt'
   env:
     GITHUB_TOKEN: $(DownloadSecureFile.secureFilePath)
 
