@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -18,3 +13,4 @@ steps:
     azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
     ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
     TargetWorkspaceName: 'synapse-qa-van'
+- task: PublishBuildArtifacts@1
