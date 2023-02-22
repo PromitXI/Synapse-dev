@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synapse-qa-van"
+		},
+		"synapse-data-dev-van-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-data-dev-van.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"synapse-qa-van-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-qa-van.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"synapse-data-dev-van-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapsevandev.dfs.core.windows.net"
+		},
+		"synapse-qa-van-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapsestorqa.dfs.core.windows.net"
+		}
+	}
+}
