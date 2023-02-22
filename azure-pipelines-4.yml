@@ -1,0 +1,11 @@
+#Synapse Deployment Pipeline
+#Using GitHub Workspace_Publish Branch as the Repository
+#Directly Deploy the 
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
