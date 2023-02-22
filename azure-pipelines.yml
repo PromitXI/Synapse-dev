@@ -1,37 +1,45 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  batch: true
+  branches:
+    include:
+      - main
+    exclude:
+      -feature/*
 
 pool:
   vmImage: ubuntu-latest
 
+
+
 variables:
+  workspace: 'synapse-$(env)-van'
   system.debug: true
 
 
-stages:
-- stage: deploy
-  displayName: 'Deploy to Synapse Workspace'
-  jobs:
-  - job: deploy
-    displayName: 'Synapse Workspace Deployment'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: AzureSynapseWorkspace.synapsecicd-deploy.synapse-deploy.Synapse workspace deployment@1
-      displayName: 'Synapse deployment task for workspace: synapse-qa-van '
-      inputs:
-        TemplateFile: '$(System.DefaultWorkingDirectory)/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/TemplateForWorkspace.json'
-        ParametersFile: '$(System.DefaultWorkingDirectory)/PromitXI/Synapse-dev/blob/workspace_publish/synapse-data-dev-van/TemplateParametersForWorkspace.json'
-        azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
-        ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
-        TargetWorkspaceName: 'synapse-qa-van '
-        workspacePublish: true
-        workspacePublishPath: Synapse-dev
-        workspacePublishRepository: workspace_publish
-      timeoutInMinutes: 15
-      retryCountOnTaskFailure: 1
+- task: Synapse workspace deployment@2
+  inputs:
+    operation: 'validateDeploy'
+    ArtifactsFolder: 'synapse-data-dev-van'
+    azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
+    ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+    TargetWorkspaceName: 'synapse-qa-van'
+    DeleteArtifactsNotInTemplate: false
+    DeployManagedPrivateEndpoints: false
+    OverrideArmParameters: '-workspaceName $(workspace)'
+    FailOnMissingOverrides: false
+    Environment: 'prod'
+    npmpackage: 'prod'
+
+
+  
+
+# steps:
+# - task: AzureSynapseWorkspace.synapsecicd-deploy.synapse-deploy.Synapse workspace deployment@2
+#   displayName: 'Synpase deployment task for workspace: synapse-$(env)-van'
+#   inputs:
+#     TemplateFile: '$(System.DefaultWorkingDirectory)/_PromitXI_Synapse-dev/synapse-data-dev-van/TemplateForWorkspace.json'
+#     ParametersFile: '$(System.DefaultWorkingDirectory)/_PromitXI_Synapse-dev/synapse-data-dev-van/TemplateParametersForWorkspace.json'
+#     azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
+#     ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+#     TargetWorkspaceName: 'synapse-$(env)-van'
+#     OverrideArmParameters: '-workspaceName $(workspace)'
