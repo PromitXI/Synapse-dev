@@ -10,13 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: toggle-triggers-dev@2
-  inputs:
-    azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
-    ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
-    WorkspaceName: 'synapse-qa-van'
-    ToggleOn: true
-    Triggers: 'workspace_publish'
+# - task: toggle-triggers-dev@2
+#   inputs:
+#     azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
+#     ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+#     WorkspaceName: 'synapse-qa-van'
+#     ToggleOn: true
+#     Triggers: 'workspace_publish'
 - task: Synapse workspace deployment@2
   inputs:
     operation: 'validateDeploy'
