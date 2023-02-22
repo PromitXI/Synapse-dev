@@ -3,9 +3,29 @@
 #Directly Deploy the 
 
 trigger:
-- main
+- workspace_publish
+
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: toggle-triggers-dev@2
+  inputs:
+    azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
+    ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+    WorkspaceName: 'synapse-qa-van'
+    ToggleOn: true
+    Triggers: 'workspace_publish'
+- task: Synapse workspace deployment@2
+  inputs:
+    operation: 'validateDeploy'
+    ArtifactsFolder: 'synapse-qa-van'
+    azureSubscription: 'Promit''s Cloud (58a3cb06-91b3-4f09-82b8-882ec0a9c038)'
+    ResourceGroupName: 'RG-PWB-Test-DataPlatform-westus3'
+    TargetWorkspaceName: 'synapse-qa-van'
+    DeleteArtifactsNotInTemplate: false
+    DeployManagedPrivateEndpoints: false
+    FailOnMissingOverrides: false
+    Environment: 'prod'
+    npmpackage: 'prod'
