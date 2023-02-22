@@ -15,11 +15,11 @@ variables:
 
 steps:
 
-- task: Approval@1
-  displayName: 'Approval For Deployment'
-  inputs:
-    approvers: 'promit.xi@gmail.com,promitazure@gmail.com'
-    timeoutInMinutes: '1440'
+# - task: Approval@1
+#   displayName: 'Approval For Deployment'
+#   inputs:
+#     approvers: 'promit.xi@gmail.com,promitazure@gmail.com'
+#     timeoutInMinutes: '1440'
   
 - task: Synapse workspace deployment@2
   inputs:
