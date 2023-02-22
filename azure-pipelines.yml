@@ -13,7 +13,8 @@ variables:
   workspace: 'synapse-$(env)-van'
   system.debug: true
 
-
+steps:
+  
 - task: Synapse workspace deployment@2
   inputs:
     operation: 'validateDeploy'
