@@ -1,6 +1,7 @@
 #Synapse Deployment Pipeline
 #Using GitHub Workspace_Publish Branch as the Repository
-#Directly Deploy the 
+#Directly Deploy the ARM Templates based on the Variables
+#Using Synapse Workspace Deployment as the 
 
 trigger:
 - workspace_publish
